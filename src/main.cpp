@@ -25,6 +25,10 @@ int main() {
     ->addAttr("property", "og:description")
     ->addAttr("content", "Comunidad de C++ Mexico");
 
+  head->addChild(new Tag("meta"))
+    ->addAttr("property", "og:image")
+    ->addAttr("content", "https://cpp.com.mx/images/logo.png");
+
   // ************ BODY *************************************
   Tag body("body");
   html.addChild(&body);
