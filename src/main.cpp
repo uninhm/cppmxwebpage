@@ -3,13 +3,33 @@
 int main() {
   Tag html("html");
 
+  // ************ HEAD *************************************
   auto head = html.addChild(new Tag("head"));
+
+  // Title
   head->addChild(new Tag("title", "C++ Mexico"));
+
+  // Load CSS
   head->addChild(new Tag("style", loadCss("test.css")));
 
+  // Meta tags for preview
+  head->addChild(new Tag("meta"))
+    ->addAttr("property", "og:url")
+    ->addAttr("content", "https://cpp.com.mx");
+
+  head->addChild(new Tag("meta"))
+    ->addAttr("property", "og:title")
+    ->addAttr("content", "C++ Mexico");
+
+  head->addChild(new Tag("meta"))
+    ->addAttr("property", "og:description")
+    ->addAttr("content", "Comunidad de C++ Mexico");
+
+  // ************ BODY *************************************
   Tag body("body");
   html.addChild(&body);
 
+  // Body style
   body
     .addAttr("style", R"(
       line-height: 1.4;
@@ -19,6 +39,7 @@ int main() {
       max-width: 1000px;
     )");
 
+  // Header (C++ Mexico)
   body
     .addChild(new Tag("header"))
       ->addAttr("style", R"(
@@ -38,15 +59,19 @@ int main() {
         ->addAttr("class", "p")
         ->addChild(new Tag("center"));
 
+  // Logo
   center
     ->addChild(new Tag("img"))
       ->addAttr("src", "https://cpp.com.mx/images/logo.png");
 
+  // Description
   center
     ->addChild(new Tag("p", "Comunidad de C++ Mexico"));
 
+  // Social media
   center
     ->addChild(new Tag("p", R"(<a href="https://twitter.com/cpp_mx">Twitter</a> / <a href="https://discord.gg/t53X2e8Mrz">Discord</a> / <a href="https://github.com/cppmexico">Github</a>)"));
 
+  // Print generated html to stdout
   html.show();
 }
